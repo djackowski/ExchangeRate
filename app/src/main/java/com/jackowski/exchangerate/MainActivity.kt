@@ -17,6 +17,7 @@ import com.jackowski.exchangerate.models.RateInfo
 import com.jackowski.exchangerate.models.Rates
 import com.jackowski.exchangerate.mvp.presenters.MainActivityPresenter
 import com.jackowski.exchangerate.mvp.views.MainActivityView
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -61,6 +62,8 @@ class MainActivity : BaseInternetConnectionActivity(), OnLoadMoreListener, OnCli
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
+        recyclerView.addItemDecoration(StickyRecyclerHeadersDecoration(adapter))
+
 
         go_up_button.setOnClickListener {
             (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
@@ -97,7 +100,7 @@ class MainActivity : BaseInternetConnectionActivity(), OnLoadMoreListener, OnCli
     override fun onDataIsUpToDate() {
         pull_to_load_view.isRefreshing = false
         Snackbar.make(
-            findViewById(android.R.id.content),
+            findViewById(getSnackbarLayoutMovingUpId()),
             getString(R.string.rates_up_to_date),
             Snackbar.LENGTH_LONG
         ).show()
@@ -142,7 +145,7 @@ class MainActivity : BaseInternetConnectionActivity(), OnLoadMoreListener, OnCli
         Toast.makeText(this, getString(R.string.no_internet_connection_message), Toast.LENGTH_LONG).show()
     }
 
-    override fun getSnacbkarLayoutMovingUpId(): Int {
+    override fun getSnackbarLayoutMovingUpId(): Int {
         return R.id.all_rates
     }
 

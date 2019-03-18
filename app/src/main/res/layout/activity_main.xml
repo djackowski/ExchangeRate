@@ -72,6 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:clipToPadding="false"
+                android:scrollbars="vertical"
                 app:layout_behavior="com.jackowski.exchangerate.utils.MoveUpwardBehavior"
         />
     </android.support.v4.widget.SwipeRefreshLayout>

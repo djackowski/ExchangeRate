@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import android.widget.TextView
 import com.jackowski.exchangerate.R
 import com.jackowski.exchangerate.models.RateInfo
 import com.jackowski.exchangerate.models.Rates
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter
+import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.single_rate_collection_item.view.*
 import java.util.*
@@ -26,7 +29,19 @@ class AllRatesAdapter(
     private val onLoadMoreListener: OnLoadMoreListener?,
     private val onClickRateInfoListener: OnClickRateInfoListener?,
     recyclerView: RecyclerView
-) : RecyclerView.Adapter<ViewHolder>(), OnClickSingleRateListener {
+) : RecyclerView.Adapter<ViewHolder>(), OnClickSingleRateListener, StickyRecyclerHeadersAdapter<AllRatesAdapter.HeaderViewHolder> {
+    override fun getHeaderId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun onCreateHeaderViewHolder(parent: ViewGroup?): HeaderViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.item_header, parent, false)
+        return HeaderViewHolder(view)
+    }
+
+    override fun onBindHeaderViewHolder(holder: HeaderViewHolder?, position: Int) {
+        holder?.header?.text =  ratesList[position]?.date
+    }
 
     private var ratesList: ArrayList<Rates?> = ArrayList()
     var isLoading = false
@@ -84,8 +99,6 @@ class AllRatesAdapter(
         val position = viewHolder.adapterPosition
         currentRates = ratesList[position]
 
-        viewHolder.date.text = currentRates?.date
-
         subRates = currentRates?.rates
 
         val gridLayoutManager = GridLayoutManager(context, 2,  GridLayoutManager.VERTICAL, false)
@@ -98,7 +111,6 @@ class AllRatesAdapter(
             rates.setRecycledViewPool(viewPool)
             setRecycledViewPool(viewPool)
         }
-
         viewHolder.rates.adapter = SingleRateListAdapter(context, this, currentRates)
     }
 
@@ -156,12 +168,15 @@ class AllRatesAdapter(
     }
 
     inner class RatesViewHolder(view: View) : ViewHolder(view) {
-        val date: TextView = view.date
         var rates: RecyclerView = view.rates
     }
 
     inner class LoadingViewHolder(view: View) : ViewHolder(view) {
         val progressBar: ProgressBar = view.load_more_progress_bar
+    }
+
+    inner class HeaderViewHolder(view: View) : ViewHolder(view) {
+        val header: TextView = view.item_header
     }
 
 }

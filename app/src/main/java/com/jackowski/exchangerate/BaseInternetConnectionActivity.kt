@@ -43,7 +43,7 @@ abstract class BaseInternetConnectionActivity : AppCompatActivity(),
     }
 
     private fun doOnConnectionLost() {
-        snackBar = Snackbar.make(findViewById(getSnacbkarLayoutMovingUpId()),
+        snackBar = Snackbar.make(findViewById(getSnackbarLayoutMovingUpId()),
             getString(R.string.no_internet_connection_message),
             Snackbar.LENGTH_INDEFINITE)
 
@@ -61,7 +61,7 @@ abstract class BaseInternetConnectionActivity : AppCompatActivity(),
         snackBar?.dismiss()
     }
 
-    abstract fun getSnacbkarLayoutMovingUpId(): Int
+    abstract fun getSnackbarLayoutMovingUpId(): Int
 
     abstract fun onInternetConnectionAvailable()
 
