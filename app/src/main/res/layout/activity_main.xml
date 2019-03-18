@@ -1,18 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="3">
+                <TextView
+                        android:text="@string/app_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="18sp"
+                        style="@style/TextViewShadowStyle"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:id="@+id/exchange_base_toolbar"
+                        tools:text="Exchange base: EUR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        style="@style/TextViewShadowStyle"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:id="@+id/last_update_toolbar"
+                        tools:text="Last update: \n2014-03-02 16:32"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        style="@style/TextViewShadowStyle"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pull_to_load_view"
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/all_rates"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:clipToPadding="false"
+                app:layout_behavior="com.jackowski.exchangerate.utils.MoveUpwardBehavior"
+        />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+            android:id="@+id/fetching_data_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:minWidth="40dp"
+            android:layout_gravity="center"
+            tools:visibility="visible"
+            android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/go_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_anchor="@id/all_rates"
+            app:layout_anchorGravity="bottom|end"
+            android:src="@drawable/ic_arrow_upward"/>
+
+</android.support.design.widget.CoordinatorLayout>

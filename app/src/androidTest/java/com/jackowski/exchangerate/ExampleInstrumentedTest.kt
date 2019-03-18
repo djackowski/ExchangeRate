@@ -1,4 +1,4 @@
-package com.jackowski.myapplication
+package com.jackowski.exchangerate
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

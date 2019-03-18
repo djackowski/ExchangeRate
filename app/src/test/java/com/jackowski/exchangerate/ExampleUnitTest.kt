@@ -1,4 +1,4 @@
-package com.jackowski.myapplication
+package com.jackowski.exchangerate
 
 import org.junit.Test
 

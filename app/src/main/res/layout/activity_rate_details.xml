@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#C4F59507">
+
+    <TextView
+            android:id="@+id/date_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="62sp"
+            android:padding="4dp"
+            android:textColor="#FA4811"
+            style="@style/TextViewShadowStyle"
+            tools:text="2012-01-01"/>
+
+    <TextView
+            android:id="@+id/rate_base_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textSize="42sp"
+            android:textColor="#FA4811"
+            style="@style/TextViewShadowStyle"
+            tools:text="1 EUR"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextViewShadowStyle"
+            android:padding="4dp"
+            android:text="="
+            android:textSize="82sp"/>
+
+    <TextView
+            android:id="@+id/currency_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FA4811"
+            android:textSize="42sp"
+            android:padding="4dp"
+            style="@style/TextViewShadowStyle"
+            tools:text="0.3414 AUD"/>
+
+</LinearLayout>
