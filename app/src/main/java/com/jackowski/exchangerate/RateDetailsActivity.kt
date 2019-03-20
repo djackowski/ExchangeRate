@@ -3,6 +3,7 @@ package com.jackowski.exchangerate
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_rate_details.*
+import java.text.DecimalFormat
 
 
 class RateDetailsActivity: AppCompatActivity() {
@@ -23,7 +24,9 @@ class RateDetailsActivity: AppCompatActivity() {
         val rate: Double = intent.getDoubleExtra(RATE_KEY, 0.0)
 
         date_details.text = date.toString()
-        rate_base_details.text = "1 $base"
-        currency_details.text = "$rate $currency"
+        rate_base_details.text = getString(R.string.euro_base, base)
+        val df = DecimalFormat("#.####")
+        val rateFormated = df.format(rate)
+        currency_details.text = getString(R.string.rate_currency_detail, rateFormated, currency)
     }
 }

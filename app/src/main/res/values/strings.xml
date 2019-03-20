@@ -3,5 +3,9 @@
     <string name="no_internet_connection_message">No internet connection</string>
     <string name="last_data_update">Last update:\n%1s</string>
     <string name="current_base">Exchange base: %1s</string>
+    <string name="rate_currency_detail">%s %s</string>
+    <string name="euro_base">1 %s</string>
     <string name="rates_up_to_date">Rates are up to date already!</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="equal_char">=</string>
 </resources>

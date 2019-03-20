@@ -6,7 +6,8 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:background="@color/colorPrimary">
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appBar"
@@ -19,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <LinearLayout
@@ -85,7 +86,8 @@
             android:minWidth="40dp"
             android:layout_gravity="center"
             tools:visibility="visible"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:indeterminateTint="@color/design_default_color_primary"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/go_up_button"

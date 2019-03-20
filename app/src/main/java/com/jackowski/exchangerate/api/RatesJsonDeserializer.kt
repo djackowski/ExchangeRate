@@ -14,9 +14,7 @@ const val HISTORICAL = "historical"
 const val BASE = "base"
 const val DATE = "date"
 const val RATES = "rates"
-//val success: Boolean, val timestamp: Number,
-//val historical: Boolean, val base: String,
-//val date: Date, val rates
+
 class RatesJsonDeserializer: JsonDeserializer<Rates> {
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Rates? {
         val jsonObject = json?.asJsonObject

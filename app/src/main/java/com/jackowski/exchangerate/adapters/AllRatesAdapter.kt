@@ -5,7 +5,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +22,7 @@ import kotlin.collections.ArrayList
 
 const val VIEW_TYPE_RATES = 0
 const val VIEW_TYPE_LOADING = 1
+const val COLUMNS_NUMBER = 2
 
 class AllRatesAdapter(
     private val context: Context,
@@ -30,8 +30,13 @@ class AllRatesAdapter(
     private val onClickRateInfoListener: OnClickRateInfoListener?,
     recyclerView: RecyclerView
 ) : RecyclerView.Adapter<ViewHolder>(), OnClickSingleRateListener, StickyRecyclerHeadersAdapter<AllRatesAdapter.HeaderViewHolder> {
+
     override fun getHeaderId(position: Int): Long {
-        return position.toLong()
+        return if(ratesList[position] == null) {
+            position.toLong() - 1
+        } else {
+            position.toLong()
+        }
     }
 
     override fun onCreateHeaderViewHolder(parent: ViewGroup?): HeaderViewHolder {
@@ -46,7 +51,6 @@ class AllRatesAdapter(
     private var ratesList: ArrayList<Rates?> = ArrayList()
     var isLoading = false
     private var viewPool = RecyclerView.RecycledViewPool()
-    private var subRates: TreeMap<String, Double>? = TreeMap()
     private var currentRates: Rates? = null
     private var isLoadedMore = true
     var hasDataPrefetched = false
@@ -99,19 +103,8 @@ class AllRatesAdapter(
         val position = viewHolder.adapterPosition
         currentRates = ratesList[position]
 
-        subRates = currentRates?.rates
-
-        val gridLayoutManager = GridLayoutManager(context, 2,  GridLayoutManager.VERTICAL, false)
-        viewHolder.rates.layoutManager = gridLayoutManager
-        viewHolder.rates.apply {
-            layoutManager = gridLayoutManager
-            adapter = SingleRateListAdapter(context, this@AllRatesAdapter, currentRates)
-            rates.setHasFixedSize(true)
-            rates.isNestedScrollingEnabled = false
-            rates.setRecycledViewPool(viewPool)
-            setRecycledViewPool(viewPool)
-        }
-        viewHolder.rates.adapter = SingleRateListAdapter(context, this, currentRates)
+        val singleRateListAdapter = viewHolder.rates.adapter as SingleRateListAdapter
+        singleRateListAdapter.updateList(currentRates)
     }
 
     override fun getItemCount(): Int {
@@ -165,10 +158,21 @@ class AllRatesAdapter(
         } else {
             ratesList.add(0, response)
         }
+        notifyDataSetChanged()
     }
 
     inner class RatesViewHolder(view: View) : ViewHolder(view) {
         var rates: RecyclerView = view.rates
+        init {
+            val gridLayoutManager = GridLayoutManager(context, COLUMNS_NUMBER,  GridLayoutManager.VERTICAL, false)
+            rates.apply {
+                layoutManager = gridLayoutManager
+                adapter = SingleRateListAdapter(context, this@AllRatesAdapter, currentRates)
+                setHasFixedSize(true)
+                isNestedScrollingEnabled = false
+                setRecycledViewPool(viewPool)
+            }
+        }
     }
 
     inner class LoadingViewHolder(view: View) : ViewHolder(view) {

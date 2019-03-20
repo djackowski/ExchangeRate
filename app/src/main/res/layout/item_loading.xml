@@ -7,5 +7,6 @@
     <ProgressBar
             android:id="@+id/load_more_progress_bar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/design_default_color_primary"/>
 </LinearLayout>

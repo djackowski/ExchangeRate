@@ -9,9 +9,6 @@ import com.jackowski.exchangerate.utils.InternetConnectivityManager
 abstract class BaseInternetConnectionActivity : AppCompatActivity(),
     ConnectionStateMonitor.ConnectivityReceiverListener {
     private var connectionStateMonitor: ConnectionStateMonitor? = null
-
-
-
     private var snackBar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +42,7 @@ abstract class BaseInternetConnectionActivity : AppCompatActivity(),
     private fun doOnConnectionLost() {
         snackBar = Snackbar.make(findViewById(getSnackbarLayoutMovingUpId()),
             getString(R.string.no_internet_connection_message),
-            Snackbar.LENGTH_INDEFINITE)
+            Snackbar.LENGTH_LONG)
 
         snackBar?.show()
 

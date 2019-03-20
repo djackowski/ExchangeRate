@@ -14,5 +14,4 @@ class ConnectivityInterceptor(private val context: Context?): Interceptor {
         val builder = chain.request().newBuilder()
         return chain.proceed(builder.build())
     }
-
 }

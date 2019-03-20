@@ -1,6 +1,5 @@
 package com.jackowski.exchangerate.mvp.presenters
 
-import android.util.Log
 import com.jackowski.exchangerate.api.Service
 import com.jackowski.exchangerate.models.Rates
 import com.jackowski.exchangerate.mvp.views.MainActivityView
@@ -86,7 +85,6 @@ class MainActivityPresenter : Presenter<MainActivityView>() {
             view?.onLoadingMoreData()
         }
 
-        view?.showOnLoadingScreen()
         fetchDisposable = service.getRatesFromDate(dateToFetch)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -95,7 +93,6 @@ class MainActivityPresenter : Presenter<MainActivityView>() {
                 view?.onMoreDataFetched(response)
                 dateToFetch = getNextDateToFetch(response.date.toString())
                 loadMoreDataFailed = false
-                view?.hideOnLoadingScreen()
             }, { error -> onLoadMoreDataError(error) })
     }
 
@@ -144,7 +141,7 @@ class MainActivityPresenter : Presenter<MainActivityView>() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 if (ratesList[0]?.timestamp != response.timestamp) {
-                    if(ratesList.first()?.date == response.date) {
+                    if (ratesList.first()?.date == response.date) {
                         ratesList[0] = response
                     } else {
                         ratesList.add(0, response)
